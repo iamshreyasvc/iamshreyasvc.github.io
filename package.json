@@ -9,11 +9,19 @@
 		"dev": "astro dev",
 		"build": "astro build",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"test": "astro check && vitest run",
+		"test:watch": "vitest"
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.8",
 		"astro": "^6.1.9",
 		"bootstrap": "^5.3.3"
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.8",
+		"@types/node": "^25.6.0",
+		"typescript": "^5.9.3",
+		"vitest": "^4.1.5"
 	}
 }
