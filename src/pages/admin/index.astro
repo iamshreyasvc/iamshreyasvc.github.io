@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="Admin — Updates"
+	description="Add site updates via GitHub."
+	noindex
+>
+	<section class="container-xxl px-3 px-md-4 py-4 py-lg-5">
+		<div class="svc-section-surface px-3 px-md-4 py-4 py-md-5 mx-auto" style="max-width: 720px;">
+			<p class="svc-card-label mb-2">Site admin</p>
+			<h1 class="h3 svc-card-title mb-3">Add an update</h1>
+			<p class="text-secondary small mb-4">
+				Pushes a new markdown file to your repository via the GitHub API. Works on GitHub Pages because the
+				build runs after each push. Your token never leaves this browser tab except to reach GitHub.
+			</p>
+
+			<div id="admin-login">
+				<form id="admin-login-form" class="mb-3">
+					<label class="form-label small fw-semibold text-uppercase" for="admin-token"
+						>GitHub personal access token</label
+					>
+					<input
+						id="admin-token"
+						name="token"
+						type="password"
+						class="form-control font-monospace mb-2"
+						autocomplete="off"
+						placeholder="github_pat_… or ghp_…"
+					/>
+					<p class="small text-secondary mb-3">
+						Use a <strong>fine-grained</strong> token with access to this repo only, permissions:
+						<code>Contents: Read and write</code>. Create one under GitHub → Settings → Developer settings →
+						<a
+							href="https://github.com/settings/personal-access-tokens"
+							target="_blank"
+							rel="noopener noreferrer">Personal access tokens</a
+						>.
+					</p>
+					<button type="submit" class="download-btn mb-0">Connect</button>
+				</form>
+			</div>
+
+			<div id="admin-form" hidden>
+				<div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+					<button type="button" id="admin-logout" class="btn-svc-outline btn-sm">Sign out</button>
+					<span class="small text-secondary">Token stored in session storage for this tab only.</span>
+				</div>
+
+				<form id="admin-update-form">
+					<div class="mb-3">
+						<label class="form-label small fw-semibold" for="admin-date">Date / label</label>
+						<input
+							id="admin-date"
+							name="date"
+							type="text"
+							class="form-control"
+							placeholder='e.g. May 2024 or "2024"'
+							required
+						/>
+					</div>
+					<div class="mb-3">
+						<label class="form-label small fw-semibold" for="admin-order">Order</label>
+						<input id="admin-order" name="order" type="number" class="form-control" value="0" required />
+						<div class="form-text">Lower numbers appear first (existing items use 1, 2, 3…).</div>
+					</div>
+					<div class="mb-3">
+						<label class="form-label small fw-semibold" for="admin-slug">File slug (optional)</label>
+						<input
+							id="admin-slug"
+							name="slug"
+							type="text"
+							class="form-control font-monospace"
+							placeholder="auto from date if empty"
+						/>
+						<div class="form-text">Becomes <code class="small">src/content/updates/[slug].md</code>.</div>
+					</div>
+					<div class="mb-3">
+						<label class="form-label small fw-semibold" for="admin-body">Body (Markdown)</label>
+						<textarea id="admin-body" name="body" class="form-control font-monospace" rows="6" required></textarea>
+						<div class="form-text">Do not start with <code>---</code>; frontmatter is added for you.</div>
+					</div>
+					<div class="mb-3">
+						<label class="form-label small fw-semibold" for="admin-branch">Branch</label>
+						<input
+							id="admin-branch"
+							name="branch"
+							type="text"
+							class="form-control font-monospace"
+							spellcheck="false"
+						/>
+						<div class="form-text">
+							Production deploy uses <code>main</code> per your workflow. Use another branch for drafts.
+						</div>
+					</div>
+					<div class="mb-4">
+						<label class="form-label small fw-semibold" for="admin-commit-msg">Commit message (optional)</label
+						>
+						<input
+							id="admin-commit-msg"
+							name="message"
+							type="text"
+							class="form-control font-monospace"
+							placeholder="chore(updates): …"
+						/>
+					</div>
+					<button type="submit" class="download-btn mb-0">Commit update</button>
+				</form>
+			</div>
+
+			<p id="admin-status" class="small mt-4 mb-0 text-muted" aria-live="polite"></p>
+			<p id="admin-result" class="small mt-2 mb-0"></p>
+		</div>
+	</section>
+
+	<script>
+		import '../../scripts/admin-updates.ts';
+	</script>
+</BaseLayout>
