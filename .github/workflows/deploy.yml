@@ -1,36 +1,21 @@
-name: Deploy
+# Runs checks on every push and pull request; deploys GitHub Pages only from main.
+name: CI and Deploy
 
 on:
   push:
-    branches:
-      - main
-      - dev
   pull_request:
-    branches:
-      - main
-      - dev
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
+    uses: ./.github/workflows/verify-reusable.yml
 
   deploy-prod:
     needs: test
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -63,11 +48,11 @@ jobs:
 
   deploy-dev:
     needs: test
-    if: github.ref == 'refs/heads/dev'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     environment:
       name: dev
     steps:
       - uses: actions/checkout@v4
-      - name: Dev build verified in test job
-        run: echo "Dev branch CI passed (build succeeded)."
+      - name: Dev branch CI passed
+        run: echo "Dev branch verified (tests and build succeeded)."
