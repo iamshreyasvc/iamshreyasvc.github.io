@@ -7,24 +7,39 @@ import SiteFooter from '../components/SiteFooter.astro';
 interface Props {
 	title: string;
 	description?: string;
+	/** When true, ask search engines not to index this page (e.g. admin). */
+	noindex?: boolean;
 }
 
 const {
 	title,
-	description = 'Shreyas V Chandramouli — MS Analytics at USC. AI, Economics, and Health.',
+	description = 'Shreyas V Chandramouli — MS Analytics at USC. AI and Health.',
+	noindex = false,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" data-bs-theme="light">
 	<head>
+		<script is:inline>
+			(function () {
+				try {
+					const stored = localStorage.getItem('svc-theme');
+					const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+					const theme =
+						stored === 'dark' || stored === 'light' ? stored : prefersDark ? 'dark' : 'light';
+					document.documentElement.setAttribute('data-bs-theme', theme);
+				} catch (_) {}
+			})();
+		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
-		<meta name="color-scheme" content="light" />
+		<meta name="color-scheme" content="light dark" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<title>{title}</title>
 	</head>
 	<body class="d-flex flex-column min-vh-100 text-body bg-body">
@@ -33,6 +48,23 @@ const {
 			<slot />
 		</main>
 		<SiteFooter />
+		<script is:inline>
+			(function () {
+				function applyTheme(theme) {
+					document.documentElement.setAttribute('data-bs-theme', theme);
+					try {
+						localStorage.setItem('svc-theme', theme);
+					} catch (_) {}
+				}
+				document.querySelectorAll('[data-svc-theme-toggle]').forEach(function (btn) {
+					btn.addEventListener('click', function () {
+						var next =
+							document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+						applyTheme(next);
+					});
+				});
+			})();
+		</script>
 		<script>
 			import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 		</script>
