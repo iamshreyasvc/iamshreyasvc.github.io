@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Shreyas V Chandramouli</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 32px;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .project-card:hover { border-color: var(--border); transform: translateY(-3px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-card-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .project-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .project-card p { font-size: 0.87rem; color: #7a7568; line-height: 1.7; margin-bottom: 20px; }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .project-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .project-card-placeholder {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 180px;
+    }
+    .project-card-placeholder span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--border);
+    }
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">SVC<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="resume.html">Resume</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Projects</div>
+    <h1>Things I've <em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--accent)">Built</em></h1>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Selected Work</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Add your real projects below. Two placeholders shown. -->
+      <div class="project-card-placeholder">
+        <span>Project Coming Soon</span>
+      </div>
+      <div class="project-card-placeholder">
+        <span>Project Coming Soon</span>
+      </div>
+    </div>
+
+    <div class="coming-soon" style="padding: 64px 0 0;">
+      <div class="coming-soon-mark">In Progress</div>
+      <p>Projects are being documented and will be published here soon. Check back later or visit my GitHub.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Shreyas V Chandramouli</span>
+  <span>shreyasvc.com</span>
+</footer>
+
+</body>
+</html>

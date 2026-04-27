@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — Shreyas V Chandramouli</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .research-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 40px;
+      margin-bottom: 24px;
+      transition: border-color 0.2s;
+    }
+    .research-card:hover { border-color: var(--accent); }
+    .research-card-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .research-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .research-tag.featured { border-color: var(--accent); color: var(--accent); }
+    .research-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .research-card p { font-size: 0.9rem; color: #7a7568; line-height: 1.75; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">SVC<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="research.html" class="active">Research</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="resume.html">Resume</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Research</div>
+    <h1>My <em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--accent)">Work</em></h1>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Publications &amp; Presentations</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-meta">
+        <span class="research-tag featured">UROP 2024</span>
+        <span class="research-tag">Presentation</span>
+        <span class="research-tag">UC Irvine</span>
+      </div>
+      <h3>Undergraduate Research Symposium</h3>
+      <p>Presented research findings at the UCI Undergraduate Research Opportunities Program (UROP) symposium in May 2024. More details on this research coming soon.</p>
+    </div>
+
+    <div class="coming-soon" style="padding: 64px 0 0;">
+      <div class="coming-soon-mark">More Coming Soon</div>
+      <p>Additional research projects and publications will be listed here as they are completed.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Shreyas V Chandramouli</span>
+  <span>shreyasvc.com</span>
+</footer>
+
+</body>
+</html>
