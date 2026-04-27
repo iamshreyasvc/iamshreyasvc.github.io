@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { getCollection, render } from 'astro:content';
+
+const updates = await getCollection('updates');
+const sortedUpdates = updates.sort((a, b) => a.data.order - b.data.order);
+const updateBlocks = await Promise.all(
+	sortedUpdates.map(async (entry) => {
+		const { Content } = await render(entry);
+		return { entry, Content };
+	}),
+);
+---
+
+<BaseLayout title="Shreyas V Chandramouli">
+	<section class="svc-hero-wrap pt-3 pt-lg-4 pb-2 pb-lg-3">
+		<div class="container-xxl px-3 px-md-4">
+			<div class="row align-items-lg-start justify-content-between g-4 g-xl-5 svc-hero-row">
+				<div class="col-12 col-lg-6 col-xl-5 col-xxl-5 hero-divider pe-lg-4 pe-xl-5">
+					<div class="hero-eyebrow fade-up">MS Analytics · USC Viterbi</div>
+					<h1 class="hero-title fade-up">
+						Shreyas<br /><em>Vasist</em><br />Chandramouli
+					</h1>
+					<p class="hero-bio fade-up">
+						Graduate student at USC, working at the intersection of Artificial Intelligence, Economics, and Health.
+						Previously at UC Irvine.
+					</p>
+					<div class="fade-up">
+						<SocialLinks />
+					</div>
+				</div>
+				<div class="col-12 col-lg-6 col-xl-7 col-xxl-7">
+					<div class="row g-3 svc-hero-cards">
+						<div class="col-12 col-xxl-6">
+							<div class="svc-card p-4 fade-up h-100">
+								<div class="svc-card-label">Currently</div>
+								<h3>MS in Analytics</h3>
+								<p>USC Viterbi School of Engineering · Los Angeles, CA</p>
+							</div>
+						</div>
+						<div class="col-12 col-xxl-6">
+							<div class="svc-card p-4 fade-up h-100">
+								<div class="svc-card-label">Focus Area</div>
+								<h3>AI · Economics · Health</h3>
+								<p>Exploring intelligent systems at the crossroads of technology, economics, and healthcare.</p>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="svc-card p-4 fade-up">
+								<div class="svc-card-label">Previously</div>
+								<h3>UC Irvine</h3>
+								<p>B.S. Computer Science (Intelligent Systems) + Economics · Donald Bren School of ICS</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container-xxl pt-3 pt-lg-4 pb-5 mb-3 px-3 px-md-4">
+		<div class="svc-section-surface px-3 px-md-4 py-4 py-md-5 mx-auto" style="max-width: 1100px;">
+			<div class="section-heading">
+				<span class="num">01</span>
+				<h2>Updates</h2>
+				<div class="line"></div>
+			</div>
+			<div>
+				{
+					updateBlocks.map(({ entry, Content }) => (
+						<div class="row update-row gx-4">
+							<div class="col-12 col-md-3 update-date">{entry.data.date}</div>
+							<div class="col update-body">
+								<Content />
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

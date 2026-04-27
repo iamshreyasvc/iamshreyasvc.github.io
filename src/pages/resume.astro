@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Resume — Shreyas V Chandramouli" description="Experience, education, and technical skills.">
+	<div class="page-hero container" style="max-width: 1100px;">
+		<div class="eyebrow">Resume</div>
+		<h1>
+			Experience &amp; <em class="accent-em">Skills</em>
+		</h1>
+	</div>
+
+	<section class="container pb-5" style="max-width: 1100px;">
+		<a class="download-btn" href="#" aria-disabled="true">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+				<polyline points="7 10 12 15 17 10"></polyline>
+				<line x1="12" y1="15" x2="12" y2="3"></line>
+			</svg>
+			Download PDF Resume
+		</a>
+
+		<div class="row g-5">
+			<div class="col-lg-8">
+				<div class="mb-5">
+					<div class="resume-section-title">Education</div>
+
+					<div class="resume-entry">
+						<div class="d-flex justify-content-between align-items-baseline gap-3 flex-wrap mb-1">
+							<h4>MS in Analytics</h4>
+							<span class="resume-entry-date">2024 – Present</span>
+						</div>
+						<div class="resume-entry-org">University of Southern California · Viterbi School of Engineering</div>
+						<p>
+							Graduate coursework in data warehousing, machine learning, statistical modeling, and analytics
+							engineering.
+						</p>
+					</div>
+
+					<div class="resume-entry">
+						<div class="d-flex justify-content-between align-items-baseline gap-3 flex-wrap mb-1">
+							<h4>BS Computer Science &amp; Economics</h4>
+							<span class="resume-entry-date">2020 – 2024</span>
+						</div>
+						<div class="resume-entry-org">University of California, Irvine · Donald Bren School of ICS</div>
+						<p>Double major. Specialization in Intelligent Systems. Economics from the School of Social Sciences.</p>
+					</div>
+				</div>
+
+				<div>
+					<div class="resume-section-title">Leadership</div>
+
+					<div class="resume-entry">
+						<div class="d-flex justify-content-between align-items-baseline gap-3 flex-wrap mb-1">
+							<h4>Academic Affairs VP Candidate</h4>
+							<span class="resume-entry-date">2024</span>
+						</div>
+						<div class="resume-entry-org">ASUCI · UC Irvine</div>
+					</div>
+
+					<div class="resume-entry">
+						<div class="d-flex justify-content-between align-items-baseline gap-3 flex-wrap mb-1">
+							<h4>Student Advocate General</h4>
+							<span class="resume-entry-date">Prior</span>
+						</div>
+						<div class="resume-entry-org">ASUCI · UC Irvine</div>
+					</div>
+
+					<div class="resume-entry">
+						<div class="d-flex justify-content-between align-items-baseline gap-3 flex-wrap mb-1">
+							<h4>UROP Research Presenter</h4>
+							<span class="resume-entry-date">May 2024</span>
+						</div>
+						<div class="resume-entry-org">Undergraduate Research Symposium · UCI</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="resume-section-title">Technical Skills</div>
+				<div class="mb-4">
+					<h4 class="small text-secondary fw-normal mb-2">Languages</h4>
+					<div class="d-flex flex-column gap-2">
+						{['Python', 'SQL', 'JavaScript', 'R'].map((s) => <div class="skill-item">{s}</div>)}
+					</div>
+				</div>
+				<div>
+					<h4 class="small text-secondary fw-normal mb-2">Tools &amp; Platforms</h4>
+					<div class="d-flex flex-column gap-2">
+						{['Snowflake', 'dbt / Data Warehouse', 'Machine Learning', 'NLP / Speech AI'].map((s) => (
+							<div class="skill-item">{s}</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

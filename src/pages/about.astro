@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const skills = [
+	'Machine Learning',
+	'Health AI',
+	'NLP',
+	'Data Engineering',
+	'Econometrics',
+	'Analytics',
+	'Audio / Speech',
+	'Real-time Systems',
+];
+---
+
+<BaseLayout title="About — Shreyas V Chandramouli" description="Background, education, and interests.">
+	<div class="page-hero container" style="max-width: 1100px;">
+		<div class="eyebrow">About Me</div>
+		<h1>
+			Background &amp; <em class="accent-em">Interests</em>
+		</h1>
+	</div>
+
+	<section class="container pb-5" style="max-width: 1100px;">
+		<div class="row g-5">
+			<div class="col-lg-6">
+				<div class="mb-5">
+					<div class="about-block-label">Bio</div>
+					<p>
+						I'm Shreyas Vasist Chandramouli — a graduate student in Analytics at the University of Southern
+						California's Viterbi School of Engineering.
+					</p>
+					<p>
+						My work sits at the intersection of Artificial Intelligence, Economics, and Health. I'm drawn to
+						questions about how intelligent systems can be designed to be equitable, interpretable, and
+						genuinely useful in high-stakes domains like healthcare.
+					</p>
+					<p>
+						Previously, I completed a double major in Computer Science (Intelligent Systems) and Economics
+						at UC Irvine, where I was involved in undergraduate research and student government.
+					</p>
+				</div>
+
+				<div>
+					<div class="about-block-label">Education</div>
+					<div class="timeline-item">
+						<div class="timeline-year">2024–</div>
+						<div class="timeline-body">
+							<h4>MS in Analytics</h4>
+							<p>USC Viterbi School of Engineering</p>
+						</div>
+					</div>
+					<div class="timeline-item">
+						<div class="timeline-year">2020–2024</div>
+						<div class="timeline-body">
+							<h4>BS Computer Science &amp; Economics</h4>
+							<p>UC Irvine · Donald Bren School of ICS</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="mb-5">
+					<div class="about-block-label">Interests</div>
+					<div class="row g-2">
+						{skills.map((s) => (
+							<div class="col-6">
+								<div class="skill-pill">{s}</div>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<div>
+					<div class="about-block-label">Involvement</div>
+					<div class="timeline-item">
+						<div class="timeline-year">2024</div>
+						<div class="timeline-body">
+							<h4>Academic Affairs VP Candidate</h4>
+							<p>ASUCI Student Government</p>
+						</div>
+					</div>
+					<div class="timeline-item">
+						<div class="timeline-year">Prior</div>
+						<div class="timeline-body">
+							<h4>Student Advocate General</h4>
+							<p>ASUCI · UC Irvine</p>
+						</div>
+					</div>
+					<div class="timeline-item">
+						<div class="timeline-year">2024</div>
+						<div class="timeline-body">
+							<h4>UROP Research Presenter</h4>
+							<p>Undergraduate Research Symposium · UCI</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
