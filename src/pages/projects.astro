@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const items = await getCollection('projects');
+const sorted = items.sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(
+	sorted.map(async (entry) => {
+		const { Content } = await render(entry);
+		return { entry, Content };
+	}),
+);
+---
+
+<BaseLayout title="Projects — Shreyas V Chandramouli" description="Selected projects and engineering work.">
+	<div class="page-hero container" style="max-width: 1100px;">
+		<div class="eyebrow">Projects</div>
+		<h1>
+			Things I've <em class="accent-em">Built</em>
+		</h1>
+	</div>
+
+	<section class="container pb-5" style="max-width: 1100px;">
+		<div class="section-heading">
+			<span class="num">01</span>
+			<h2>Selected Work</h2>
+			<div class="line"></div>
+		</div>
+
+		<div class="row g-4">
+			{
+				rendered.map(({ entry, Content }, idx) =>
+					entry.data.placeholder ? (
+						<div class="col-md-6">
+							<div class="svc-card project-placeholder border-0 p-4 bg-transparent">
+								<span class="font-mono-label small text-secondary text-uppercase letter-spacing-wide">
+									Project Coming Soon
+								</span>
+							</div>
+						</div>
+					) : (
+						<div class="col-md-6">
+							<div class="card svc-card project-card border-0 h-100 p-4 bg-transparent">
+								<div class="font-mono-label small text-accent mb-3 letter-spacing-wide">
+									{String(idx + 1).padStart(2, '0')}
+								</div>
+								{entry.data.title && <h3 class="svc-card-title h5 mb-3">{entry.data.title}</h3>}
+								<div class="project-body mb-3">
+									<Content />
+								</div>
+							</div>
+						</div>
+					),
+				)
+			}
+		</div>
+
+		<div class="text-center py-5 pt-md-6">
+			<div class="coming-soon-mark mb-3">In Progress</div>
+			<p class="text-secondary small mx-auto" style="max-width: 360px;">
+				Projects are being documented and will be published here soon. Check back later or visit my GitHub.
+			</p>
+			<a
+				href="https://github.com/iamshreyasvc"
+				class="btn btn-svc-outline btn-sm mt-3"
+				target="_blank"
+				rel="noopener noreferrer">GitHub</a
+			>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.letter-spacing-wide {
+		letter-spacing: 0.15em;
+	}
+</style>

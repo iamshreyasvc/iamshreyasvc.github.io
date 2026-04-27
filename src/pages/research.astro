@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const items = await getCollection('research');
+const rendered = await Promise.all(
+	items.map(async (entry) => {
+		const { Content } = await render(entry);
+		return { entry, Content };
+	}),
+);
+---
+
+<BaseLayout title="Research — Shreyas V Chandramouli" description="Research, publications, and presentations.">
+	<div class="page-hero container" style="max-width: 1100px;">
+		<div class="eyebrow">Research</div>
+		<h1>My <em class="accent-em">Work</em></h1>
+	</div>
+
+	<section class="container pb-5" style="max-width: 1100px;">
+		<div class="section-heading">
+			<span class="num">01</span>
+			<h2>Publications &amp; Presentations</h2>
+			<div class="line"></div>
+		</div>
+
+		{
+			rendered.map(({ entry, Content }) => (
+				<div class="card svc-card research-card border-0 mb-4 p-4 p-md-5 bg-transparent">
+					<div class="d-flex flex-wrap gap-2 mb-3">
+						{entry.data.tags.map((tag, i) => (
+							<span class:list={['research-tag', { featured: entry.data.featured && i === 0 }]}>
+								{tag}
+							</span>
+						))}
+					</div>
+					<h3 class="svc-card-title h4 mb-3">{entry.data.title}</h3>
+					<div class="research-body">
+						<Content />
+					</div>
+				</div>
+			))
+		}
+
+		<div class="text-center py-5 pt-md-6">
+			<div class="coming-soon-mark mb-3">More Coming Soon</div>
+			<p class="text-secondary small mx-auto" style="max-width: 360px;">
+				Additional research projects and publications will be listed here as they are completed.
+			</p>
+		</div>
+	</section>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+interface Props {
+	currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function normalizePath(p: string): string {
+	if (p.length > 1 && p.endsWith('/')) return p.slice(0, -1);
+	return p;
+}
+
+const path = normalizePath(currentPath);
+
+function isActive(href: string): boolean {
+	const h = normalizePath(href);
+	if (h === '/') return path === '/' || path === '';
+	return path === h || path.startsWith(h + '/');
+}
+
+const links = [
+	{ href: '/', label: 'Home' },
+	{ href: '/about', label: 'About' },
+	{ href: '/research', label: 'Research' },
+	{ href: '/projects', label: 'Projects' },
+	{ href: '/resume', label: 'Resume' },
+] as const;
+---
+
+<nav class="navbar navbar-expand-md navbar-light svc-nav svc-nav-outer fixed-top py-3">
+	<div class="container-xxl px-3 px-md-4">
+		<div class="svc-nav-shell w-100 d-flex flex-wrap align-items-center justify-content-between px-3 px-md-4 py-2">
+			<a class="navbar-brand fw-normal mb-0" href="/">SVC<span class="brand-dot">.</span></a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#svcNav"
+				aria-controls="svcNav"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-end" id="svcNav">
+				<ul class="navbar-nav gap-1 gap-md-2 mt-3 mt-md-0">
+					{
+						links.map(({ href, label }) => (
+							<li class="nav-item">
+								<a class:list={['nav-link', { active: isActive(href) }]} href={href}>
+									{label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
