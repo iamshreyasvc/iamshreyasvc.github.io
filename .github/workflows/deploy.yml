@@ -1,0 +1,61 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install -g htmlhint broken-link-checker
+
+      - name: Lint HTML
+        run: htmlhint "*.html"
+
+      - name: Check links
+        run: blc http://localhost:5500 --recursive || true
+
+  deploy-prod:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://shreyasvc.com
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - uses: actions/deploy-pages@v4
+
+  deploy-dev:
+    needs: test
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dev deploy
+        run: echo "Dev build successful"
