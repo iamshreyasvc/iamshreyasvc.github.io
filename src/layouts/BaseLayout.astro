@@ -1,0 +1,40 @@
+---
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/global.css';
+import SiteNavbar from '../components/SiteNavbar.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const {
+	title,
+	description = 'Shreyas V Chandramouli — MS Analytics at USC. AI, Economics, and Health.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="color-scheme" content="light" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="d-flex flex-column min-vh-100 text-body bg-body">
+		<SiteNavbar currentPath={Astro.url.pathname} />
+		<main class="flex-grow-1">
+			<slot />
+		</main>
+		<SiteFooter />
+		<script>
+			import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+		</script>
+	</body>
+</html>

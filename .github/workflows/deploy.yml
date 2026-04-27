@@ -11,7 +11,6 @@ on:
       - dev
 
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -20,16 +19,14 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: npm install -g htmlhint broken-link-checker
+        run: npm ci
 
-      - name: Lint HTML
-        run: htmlhint "*.html"
-
-      - name: Check links
-        run: blc http://localhost:5500 --recursive || true
+      - name: Build
+        run: npm run build
 
   deploy-prod:
     needs: test
@@ -43,10 +40,25 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
       - uses: actions/configure-pages@v4
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: dist
+
       - uses: actions/deploy-pages@v4
 
   deploy-dev:
@@ -57,5 +69,5 @@ jobs:
       name: dev
     steps:
       - uses: actions/checkout@v4
-      - name: Dev deploy
-        run: echo "Dev build successful"
+      - name: Dev build verified in test job
+        run: echo "Dev branch CI passed (build succeeded)."
