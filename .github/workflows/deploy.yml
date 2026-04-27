@@ -31,5 +31,5 @@ jobs:
       name: dev
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy to dev
-        run: echo "Dev build successful — files are ready for review"
+      - name: Dev deploy
+        run: echo "Dev build successful"
